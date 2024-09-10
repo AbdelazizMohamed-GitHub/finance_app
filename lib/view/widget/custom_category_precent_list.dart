@@ -1,11 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:finance_app/constnat.dart';
+import 'package:finance_app/cubits/fetch_data_cubit/fetch_data_cubit.dart';
 import 'package:finance_app/model/category_model.dart';
 import 'package:finance_app/view/widget/custom_category_precent_item.dart';
-import 'package:flutter/material.dart';
 
 class CustomCategoryPrecentList extends StatelessWidget {
-  const CustomCategoryPrecentList({super.key});
-  
+  const CustomCategoryPrecentList({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -15,7 +20,8 @@ class CustomCategoryPrecentList extends StatelessWidget {
       },
       itemBuilder: (BuildContext context, int index) {
         return CustomCategoryPrecentItem(
-          amount: cateoryList[index].amount,
+          amount: BlocProvider.of<FetchDataCubit>(context)
+              .fetchCategorySum(cateoryList[index].name),
           image: cateoryList[index].image,
           categoryName: cateoryList[index].name.toString(),
         );

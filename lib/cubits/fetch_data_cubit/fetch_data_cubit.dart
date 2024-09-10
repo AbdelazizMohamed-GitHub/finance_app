@@ -13,11 +13,15 @@ class FetchDataCubit extends Cubit<FetchDataState> {
   double totalExpense = 0.0;
   double totalIncome = 0.0;
   double totalBalance = 0.0;
+  double total = 0.0;
   void fetchData() {
     try {
       totalExpense = 0.0;
       totalIncome = 0.0;
       totalBalance = 0.0;
+
+      total = 0.0;
+
       emit(FetchDataLoading());
       List<FinanceModel> dataList =
           Hive.box<FinanceModel>(kBox).values.toList();
@@ -29,10 +33,29 @@ class FetchDataCubit extends Cubit<FetchDataState> {
         }
 
         totalBalance = totalIncome - totalExpense;
+
+        total = totalExpense + totalIncome;
       }
       emit(FetchDataSuccess(list: dataList));
     } catch (e) {
       emit(FetchDataFailure(error: e.toString()));
     }
+  }
+
+  double categorySum = 0.0;
+  double fetchCategorySum(String category) {
+    try {
+      emit(FetchCategoryDataLoading());
+      categorySum = 0.0;
+      for (var element in Hive.box<FinanceModel>(kBox).values) {
+        if (element.category == category) {
+          categorySum += double.parse(element.amount);
+        }
+      }
+      emit(FetchCategoryDataSuccess());
+    } catch (e) {
+      emit(FetchCategoryDataFailure(error: e.toString()));
+    }
+    return categorySum;
   }
 }

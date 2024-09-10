@@ -47,11 +47,7 @@ class HomeScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          return state is FetchDataLoading
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Column(
+          return Column(
                   children: [
                     Stack(
                       children: [
@@ -66,8 +62,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -160,7 +155,9 @@ class HomeScreen extends StatelessWidget {
                             onPressed: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return SeeAllScreen();
+                                return SeeAllScreen(
+                                  financeList: list,
+                                );
                               }));
                             },
                             child: Text(
@@ -182,7 +179,7 @@ class HomeScreen extends StatelessWidget {
                               key: Key(index.toString()),
                               direction: DismissDirection.endToStart,
                               // confirmDismiss: (direction) {
-    
+
                               // },
                               background: Container(
                                 color: kPrimaryColor,

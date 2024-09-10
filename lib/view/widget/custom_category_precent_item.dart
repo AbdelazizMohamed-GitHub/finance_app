@@ -1,4 +1,6 @@
+import 'package:finance_app/cubits/fetch_data_cubit/fetch_data_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomCategoryPrecentItem extends StatelessWidget {
   const CustomCategoryPrecentItem(
@@ -8,7 +10,7 @@ class CustomCategoryPrecentItem extends StatelessWidget {
       required this.categoryName});
   final String image;
   final String categoryName;
-  final int amount;
+  final double amount;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +26,16 @@ class CustomCategoryPrecentItem extends StatelessWidget {
         style: const TextStyle(fontSize: 20),
       ),
       subtitle: LinearProgressIndicator(
-        value: amount / 100,
-        backgroundColor: Colors.grey[300],
+        value: amount / BlocProvider.of<FetchDataCubit>(context).totalBalance,
+        backgroundColor: Colors.grey[400],
         minHeight: 10,
         valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
       ),
-      trailing: Text(
-        '$amount %',
-        style: const TextStyle(fontSize: 20),
+      trailing: SizedBox(width: 70,
+        child: Text(textAlign: TextAlign.end,
+          '$amount ',
+          style: const TextStyle(fontSize: 20),
+        ),
       ),
     );
   }

@@ -13,3 +13,9 @@ final class FetchDataFailure extends FetchDataState {
   final String error;
   FetchDataFailure({required this.error});
 }
+final class FetchCategoryDataLoading extends FetchDataState {}
+final class FetchCategoryDataSuccess extends FetchDataState {}
+final class FetchCategoryDataFailure extends FetchDataState {
+  final String error;
+  FetchCategoryDataFailure({required this.error});
+}
