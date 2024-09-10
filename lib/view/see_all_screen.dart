@@ -14,15 +14,15 @@ class SeeAllScreen extends StatelessWidget {
         ),
       
       ),
-      body: ListView.separated(
-        itemCount: 20,
-        separatorBuilder: (BuildContext context, int index) {
-          return const Divider();
-        },
-        itemBuilder: (BuildContext context, int index) {
-          return const CustomFinanceItem();
-        },
-      ),
+      // body: ListView.separated(
+      //   itemCount: 20,
+      //   separatorBuilder: (BuildContext context, int index) {
+      //     return const Divider();
+      //   },
+      //   itemBuilder: (BuildContext context, int index) {
+      //     return const CustomFinanceItem(financeModel: lis);
+      //   },
+      // ),
     );
   }
 }

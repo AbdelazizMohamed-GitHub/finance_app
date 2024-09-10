@@ -1,9 +1,15 @@
 import 'package:finance_app/constnat.dart';
+import 'package:finance_app/cubits/add_data_cubit/add_data_cubit.dart';
+import 'package:finance_app/cubits/fetch_data_cubit/fetch_data_cubit.dart';
 import 'package:finance_app/model/category_model.dart';
+import 'package:finance_app/model/finance_model.dart';
+import 'package:finance_app/view/widget/custom_add_screen_button.dart';
 import 'package:finance_app/view/widget/custom_category_dropdown.dart';
 import 'package:finance_app/view/widget/custom_text_form.dart';
+import 'package:finance_app/view/widget/custom_time_picker.dart';
 import 'package:finance_app/view/widget/custom_type_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class AddScreen extends StatefulWidget {
@@ -14,28 +20,31 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-  DateTime data = DateTime.now();
+  DateTime currentDate = DateTime.now();
+  String type = '';
+  String category = '';
+  TextEditingController amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(233, 224, 224, 224),
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
+        backgroundColor: const Color.fromARGB(233, 224, 224, 224),
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+          ),
+          title: const Text(
+            'Add Balance',
           ),
         ),
-        title: const Text(
-          'Add Balance',
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
+        body: SingleChildScrollView(
+            child: Column(
           children: [
             Stack(
               children: [
@@ -58,75 +67,77 @@ class _AddScreenState extends State<AddScreen> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       color: Colors.white),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      const CustomTextForm(
-                        text: 'Balance',
-                        textController: null,
-                        textType: TextInputType.number,
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const CustomCategoryDropdown(),
-                     const SizedBox(
-                        height: 15,
-                      ),
-                      CustomTypeDropdown(),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      GestureDetector(
-                        onTap: () async {
-                          DateTime? newDate = await showDatePicker(
-                              context: context,
-                              initialDate: data,
-                              firstDate: DateTime(2024),
-                              lastDate: DateTime(2100));
-                          if (newDate != null) {
-                            setState(() {
-                              data = newDate;
-                            });
-                          }
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Text(
-                            DateFormat.yMMMEd().format(data),
-                            style: const TextStyle(),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      MaterialButton(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 50, vertical: 5),
-                        color: kPrimaryColor,
-                        shape: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16)),
-                        onPressed: () {},
-                        child: const Text('Save',
-                            style:
-                                TextStyle(fontSize: 22, color: Colors.white)),
-                      )
-                    ],
+                  child: Column(children: [
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    CustomTextForm(
+                      text: 'Balance',
+                      textController: amountController,
+                      textType: TextInputType.number,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    CustomCategoryDropdown(
+                      onChanged: (String? value) {
+                        category = value!;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    CustomTypeDropdown(
+                      onChanged: (String? value) {
+                        type = value!;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    CustomTimePicker(onChanged: (DateTime? value) {
+                      currentDate = value!;
+                    }),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    BlocProvider(
+      create: (context) => AddDataCubit(),
+      child: BlocBuilder<AddDataCubit, AddDataState>(
+        builder: (context, state) {
+          return MaterialButton(
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+            color: kPrimaryColor,
+            shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+            onPressed: () {
+              if (amountController.text.isNotEmpty && type.isNotEmpty && category.isNotEmpty) {
+                final financeModel = FinanceModel(
+                  category: category,
+                  amount:amountController.text, 
+                  date: currentDate,
+                  type: type,
+                );
+                context.read<AddDataCubit>().addData(financeModel);
+                Navigator.pop(context);
+                BlocProvider.of<FetchDataCubit>(context).fetchData();
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Please fill all fields'),
                   ),
+                );
+              }
+            },
+            child: const Text('Save',
+                style: TextStyle(fontSize: 22, color: Colors.white)),
+          );
+        },
+      ),)
+                  ]),
                 )
               ],
-            )
+            ),
           ],
-        ),
-      ),
-    );
+        ),),);
   }
 }

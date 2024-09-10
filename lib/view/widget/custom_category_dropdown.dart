@@ -1,9 +1,14 @@
-import 'package:finance_app/model/category_model.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-class CustomCategoryDropdown extends StatefulWidget {
-  const CustomCategoryDropdown({super.key});
+import 'package:finance_app/model/category_model.dart';
 
+class CustomCategoryDropdown extends StatefulWidget {
+  const CustomCategoryDropdown({
+    super.key,
+    required this.onChanged,
+  });
+final ValueChanged<String?> onChanged;
   @override
   State<CustomCategoryDropdown> createState() => _CustomCategoryDropdownState();
 }
@@ -43,6 +48,7 @@ class _CustomCategoryDropdownState extends State<CustomCategoryDropdown> {
         }).toList(),
         onChanged: (value) {
           selectedCategory = value.toString();
+          widget.onChanged(selectedCategory);
         });
   }
 }

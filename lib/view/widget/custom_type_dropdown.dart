@@ -1,8 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-class CustomTypeDropdown extends StatelessWidget {
-  CustomTypeDropdown({super.key});
+class CustomTypeDropdown extends StatefulWidget {
+  const CustomTypeDropdown({
+    super.key,
+    required this.onChanged,
+  });
+  final ValueChanged<String?> onChanged;
+
+  @override
+  State<CustomTypeDropdown> createState() => _CustomTypeDropdownState();
+}
+
+class _CustomTypeDropdownState extends State<CustomTypeDropdown> {
   String? selectValue;
+
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
@@ -24,6 +36,7 @@ class CustomTypeDropdown extends StatelessWidget {
         ],
         onChanged: (value) {
           selectValue = value;
+          widget.onChanged(value);
         });
   }
 }

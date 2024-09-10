@@ -1,25 +1,36 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-class CustomFinanceItem extends StatelessWidget {
-  const CustomFinanceItem({super.key});
+import 'package:finance_app/model/finance_model.dart';
+import 'package:intl/intl.dart';
 
+class CustomFinanceItem extends StatelessWidget {
+  const CustomFinanceItem({
+    super.key,
+    required this.financeModel,
+    required this.index,
+  });
+  final List<FinanceModel> financeModel;
+  final int index;
   @override
   Widget build(BuildContext context) {
-    return const ListTile(
-      leading: Icon(
-        Icons.assessment,
-        size: 40,
+    return ListTile(
+      leading: Image.asset(
+        "assets/images/${financeModel[index].category}.png",
+        width: 60,
+        height: 60,
+        fit: BoxFit.cover,
       ),
       title: Text(
-        'Food',
-        style: TextStyle(
+        financeModel[index].category,
+        style: const TextStyle(
           fontSize: 22,
         ),
       ),
-      subtitle: Text('2-9-2024'),
+      subtitle: Text(DateFormat.yMMMEd().format(financeModel[index].date)),
       trailing: Text(
-        '\$ 200',
-        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ' ${financeModel[index].amount}',
+        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
       ),
     );
   }
