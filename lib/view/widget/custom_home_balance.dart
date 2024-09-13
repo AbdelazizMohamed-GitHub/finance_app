@@ -14,7 +14,7 @@ class CustomHomeBalance extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.all(16),
           width: double.infinity,
-          height: MediaQuery.of(context).size.height * 0.25,
+          height: MediaQuery.of(context).size.height * 0.22,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16), color: kPrimaryColor),
           child: Column(
@@ -28,7 +28,9 @@ class CustomHomeBalance extends StatelessWidget {
                 ),
               ),
               Text(
-                "\$ ${BlocProvider.of<FetchDataCubit>(context).totalBalance}",
+                formatNumber(
+                  BlocProvider.of<FetchDataCubit>(context).totalBalance.toInt(),
+                ),
                 style: const TextStyle(
                     fontSize: 22,
                     color: Colors.white,
@@ -40,16 +42,16 @@ class CustomHomeBalance extends StatelessWidget {
                 children: [
                   CustomTotalIncomeAndExpanses(
                     titleText: 'Income',
-                    total: BlocProvider.of<FetchDataCubit>(context)
+                    total: formatNumber(BlocProvider.of<FetchDataCubit>(context)
                         .totalIncome
-                        .toString(),
+                        .toInt()),
                     icon: Icons.arrow_downward,
                   ),
                   CustomTotalIncomeAndExpanses(
                     titleText: 'Expenses',
-                    total: BlocProvider.of<FetchDataCubit>(context)
+                    total: formatNumber(BlocProvider.of<FetchDataCubit>(context)
                         .totalExpense
-                        .toString(),
+                        .toInt()),
                     icon: Icons.arrow_upward,
                   )
                 ],

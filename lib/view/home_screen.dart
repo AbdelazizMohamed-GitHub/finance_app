@@ -1,10 +1,10 @@
-
 import 'package:finance_app/cubits/fetch_data_cubit/fetch_data_cubit.dart';
 import 'package:finance_app/model/finance_model.dart';
 import 'package:finance_app/view/add_screen.dart';
 import 'package:finance_app/view/see_all_screen.dart';
 import 'package:finance_app/view/widget/custom_finance_item.dart';
 import 'package:finance_app/view/widget/custom_home_balance.dart';
+import 'package:finance_app/view/widget/custom_home_list.dart';
 import 'package:flutter/material.dart';
 
 import 'package:finance_app/constnat.dart';
@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.25,
+                    height: MediaQuery.of(context).size.height * 0.22,
                     decoration: BoxDecoration(
                       color: kPrimaryColor.withOpacity(0.9),
                       borderRadius: const BorderRadius.only(
@@ -66,12 +66,13 @@ class HomeScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Good Morning',
+                            'Hi👋',
                             style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
                           Text(
                             '${Hive.box(kUserBox).get('username')}',
-                            style: const TextStyle(fontSize: 24, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 24, color: Colors.white),
                           )
                         ],
                       ),
@@ -79,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Padding(
                       padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.15,
+                          top: MediaQuery.of(context).size.height * 0.12,
                           left: 30,
                           right: 30),
                       child: const CustomHomeBalance())
@@ -116,24 +117,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: ListView.separated(
-                  itemCount: list.length,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Divider();
-                  },
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                        onDoubleTap: () {
-                          list[index].delete();
-                         
-                          BlocProvider.of<FetchDataCubit>(context).fetchData();
-                        },
-                        child: CustomFinanceItem(
-                          financeModel: list,
-                          index: index,
-                        ));
-                  },
-                ),
+                child: CustomHomeList(list: list),
               )
             ],
           );

@@ -8,6 +8,14 @@ const String kUserBox = 'user';
 
 final List screens = [const HomeScreen(), const ChartScreen()];
 
+String formatNumber(int number) {
+  if (number >= 1000) {
+    return '${(number / 1000).toStringAsFixed(1)}K';
+  } else {
+    return number.toString();
+  }
+}
+
 class AppImages {
   static const String charity = 'assets/images/Charity.png';
   static const String food = 'assets/images/Food.png';

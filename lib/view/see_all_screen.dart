@@ -1,3 +1,4 @@
+import 'package:finance_app/view/widget/custom_home_list.dart';
 import 'package:flutter/material.dart';
 
 import 'package:finance_app/model/finance_model.dart';
@@ -26,19 +27,7 @@ class SeeAllScreen extends StatelessWidget {
           'All Transation',
         ),
       ),
-      body: ListView.separated(
-        shrinkWrap: true,
-        itemCount: financeList.length,
-        separatorBuilder: (BuildContext context, int index) {
-          return const Divider();
-        },
-        itemBuilder: (BuildContext context, int index) {
-          return CustomFinanceItem(
-            financeModel: financeList,
-            index: index,
-          );
-        },
-      ),
+      body: CustomHomeList(list: financeList),
     );
   }
 }
