@@ -10,13 +10,12 @@ class AddDataCubit extends Cubit<AddDataState> {
   AddDataCubit() : super(AddDataInitial());
 
   void addData(FinanceModel financeModel) {
-   try{
-    emit(AddDataLoading());
-    Hive.box<FinanceModel>(kBox).add(financeModel);
-    emit(AddDataSuccess());
-   }
-   catch(e){
-     emit(AddDataFailure(error: e.toString()));
-   }
+    try {
+      emit(AddDataLoading());
+      Hive.box<FinanceModel>(kBox).add(financeModel);
+      emit(AddDataSuccess());
+    } catch (e) {
+      emit(AddDataFailure(error: e.toString()));
+    }
   }
 }

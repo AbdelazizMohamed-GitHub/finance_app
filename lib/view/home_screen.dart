@@ -6,6 +6,7 @@ import 'package:finance_app/model/finance_model.dart';
 import 'package:finance_app/view/add_screen.dart';
 import 'package:finance_app/view/see_all_screen.dart';
 import 'package:finance_app/view/widget/custom_finance_item.dart';
+import 'package:finance_app/view/widget/custom_home_balance.dart';
 import 'package:finance_app/view/widget/custom_total_income_and_expenses.dart';
 import 'package:flutter/material.dart';
 
@@ -48,155 +49,97 @@ class HomeScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.25,
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor.withOpacity(0.9),
-                            borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(20),
-                              bottomLeft: Radius.circular(20),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Good Morning',
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white),
-                                ),
-                                Text(
-                                  'Abdelaziz Mohamed',
-                                  style: TextStyle(
-                                      fontSize: 24, color: Colors.white),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.15,
-                              left: 30,
-                              right: 30),
-                          child: Container(
-                            padding: EdgeInsets.all(16),
-                            width: double.infinity,
-                            height: MediaQuery.of(context).size.height * 0.25,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: kPrimaryColor),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Total Balance",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  "\$ ${BlocProvider.of<FetchDataCubit>(context).totalBalance}",
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Spacer(),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    CustomTotalIncomeAndExpanses(
-                                      titleText: 'Income',
-                                      total: BlocProvider.of<FetchDataCubit>(
-                                              context)
-                                          .totalIncome
-                                          .toString(),
-                                      icon: Icons.arrow_downward,
-                                    ),
-                                    CustomTotalIncomeAndExpanses(
-                                      titleText: 'Expenses',
-                                      total: BlocProvider.of<FetchDataCubit>(
-                                              context)
-                                          .totalExpense
-                                          .toString(),
-                                      icon: Icons.arrow_upward,
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
+            children: [
+              Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    decoration: BoxDecoration(
+                      color: kPrimaryColor.withOpacity(0.9),
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Transaction History",
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w500),
+                            'Good Morning',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return SeeAllScreen(
-                                  financeList: list,
-                                );
-                              }));
-                            },
-                            child: Text(
-                              'See all',
-                              style: TextStyle(fontSize: 16),
-                            ),
+                          Text(
+                            '${Hive.box(kUserBox).get('username')}',
+                            style: TextStyle(fontSize: 24, color: Colors.white),
                           )
                         ],
                       ),
                     ),
-                    Expanded(
-                      child: ListView.separated(
-                        itemCount: list.length,
-                        separatorBuilder: (BuildContext context, int index) {
-                          return Divider();
-                        },
-                        itemBuilder: (BuildContext context, int index) {
-                          return Dismissible(
-                              key: Key(index.toString()),
-                              direction: DismissDirection.endToStart,
-                              // confirmDismiss: (direction) {
-
-                              // },
-                              background: Container(
-                                color: kPrimaryColor,
-                                child: Icon(
-                                  Icons.delete,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              child: CustomFinanceItem(
-                                financeModel: list,
-                                index: index,
-                              ));
-                        },
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.15,
+                          left: 30,
+                          right: 30),
+                      child: CustomHomeBalance())
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Transaction History",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return SeeAllScreen(
+                            financeList: list,
+                          );
+                        }));
+                      },
+                      child: Text(
+                        'See all',
+                        style: TextStyle(fontSize: 16),
                       ),
                     )
                   ],
-                );
+                ),
+              ),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: list.length,
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider();
+                  },
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                        onDoubleTap: () {
+                          list[index].delete();
+                         
+                          BlocProvider.of<FetchDataCubit>(context).fetchData();
+                        },
+                        child: CustomFinanceItem(
+                          financeModel: list,
+                          index: index,
+                        ));
+                  },
+                ),
+              )
+            ],
+          );
         },
       ),
     );

@@ -1,16 +1,13 @@
 import 'package:finance_app/constnat.dart';
 import 'package:finance_app/cubits/add_data_cubit/add_data_cubit.dart';
 import 'package:finance_app/cubits/fetch_data_cubit/fetch_data_cubit.dart';
-import 'package:finance_app/model/category_model.dart';
 import 'package:finance_app/model/finance_model.dart';
-import 'package:finance_app/view/widget/custom_add_screen_button.dart';
 import 'package:finance_app/view/widget/custom_category_dropdown.dart';
 import 'package:finance_app/view/widget/custom_text_form.dart';
 import 'package:finance_app/view/widget/custom_time_picker.dart';
 import 'package:finance_app/view/widget/custom_type_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});
@@ -103,7 +100,8 @@ class _AddScreenState extends State<AddScreen> {
                     ),
                     BlocProvider(
       create: (context) => AddDataCubit(),
-      child: BlocBuilder<AddDataCubit, AddDataState>(
+      child: 
+    BlocBuilder<AddDataCubit, AddDataState>(
         builder: (context, state) {
           return MaterialButton(
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
@@ -132,8 +130,8 @@ class _AddScreenState extends State<AddScreen> {
                 style: TextStyle(fontSize: 22, color: Colors.white)),
           );
         },
-      ),)
-                  ]),
+      ),
+                 ) ]),
                 )
               ],
             ),

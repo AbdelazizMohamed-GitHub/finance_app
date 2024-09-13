@@ -15,9 +15,13 @@ class CustomTextForm extends StatelessWidget {
   final TextInputType textType;
   @override
   Widget build(BuildContext context) {
-    return TextFormField(keyboardType:textType ,
+    return TextFormField(
+      keyboardType: textType,
       controller: textController,
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        filled: true,
+        fillColor: Colors.white,
         hintText: text,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

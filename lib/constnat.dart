@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 const Color kPrimaryColor = Color(0xff02072F);
 const String kBox = 'finance';
+const String kUserBox = 'user';
+
 final List screens = [const HomeScreen(), const ChartScreen()];
 
 class AppImages {
