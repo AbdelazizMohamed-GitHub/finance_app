@@ -1,6 +1,4 @@
-import 'package:finance_app/constnat.dart';
 import 'package:finance_app/cubits/fetch_data_cubit/fetch_data_cubit.dart';
-import 'package:finance_app/model/category_model.dart';
 import 'package:finance_app/view/widget/custom_category_chart.dart';
 import 'package:finance_app/view/widget/custom_category_precent_list.dart';
 import 'package:flutter/material.dart';

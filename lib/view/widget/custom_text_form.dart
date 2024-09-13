@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 import 'package:finance_app/constnat.dart';
@@ -19,7 +18,7 @@ class CustomTextForm extends StatelessWidget {
       keyboardType: textType,
       controller: textController,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        contentPadding:const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         filled: true,
         fillColor: Colors.white,
         hintText: text,

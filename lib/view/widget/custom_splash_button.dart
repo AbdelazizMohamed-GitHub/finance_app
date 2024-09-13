@@ -1,7 +1,6 @@
 import 'package:finance_app/constnat.dart';
 import 'package:finance_app/view/main_screen.dart';
 import 'package:finance_app/view/widget/custom_text_form.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

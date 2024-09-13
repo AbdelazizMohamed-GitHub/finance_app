@@ -25,23 +25,23 @@ class _AddScreenState extends State<AddScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(233, 224, 224, 224),
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-          ),
-          title: const Text(
-            'Add Balance',
+      backgroundColor: const Color.fromARGB(233, 224, 224, 224),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
           ),
         ),
-        body: SingleChildScrollView(
-            child: Column(
+        title: const Text(
+          'Add Balance',
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
           children: [
             Stack(
               children: [
@@ -99,43 +99,53 @@ class _AddScreenState extends State<AddScreen> {
                       height: 20,
                     ),
                     BlocProvider(
-      create: (context) => AddDataCubit(),
-      child: 
-    BlocBuilder<AddDataCubit, AddDataState>(
-        builder: (context, state) {
-          return MaterialButton(
-            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-            color: kPrimaryColor,
-            shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-            onPressed: () {
-              if (amountController.text.isNotEmpty && type.isNotEmpty && category.isNotEmpty) {
-                final financeModel = FinanceModel(
-                  category: category,
-                  amount:amountController.text, 
-                  date: currentDate,
-                  type: type,
-                );
-                context.read<AddDataCubit>().addData(financeModel);
-                Navigator.pop(context);
-                BlocProvider.of<FetchDataCubit>(context).fetchData();
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Please fill all fields'),
-                  ),
-                );
-              }
-            },
-            child: const Text('Save',
-                style: TextStyle(fontSize: 22, color: Colors.white)),
-          );
-        },
-      ),
-                 ) ]),
+                      create: (context) => AddDataCubit(),
+                      child: BlocBuilder<AddDataCubit, AddDataState>(
+                        builder: (context, state) {
+                          return MaterialButton(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 5),
+                            color: kPrimaryColor,
+                            shape: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16)),
+                            onPressed: () {
+                              if (amountController.text.isNotEmpty &&
+                                  type.isNotEmpty &&
+                                  category.isNotEmpty) {
+                                final financeModel = FinanceModel(
+                                  category: category,
+                                  amount: amountController.text,
+                                  date: currentDate,
+                                  type: type,
+                                );
+                                context
+                                    .read<AddDataCubit>()
+                                    .addData(financeModel);
+                                Navigator.pop(context);
+                                BlocProvider.of<FetchDataCubit>(context)
+                                    .fetchData();
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Please fill all fields'),
+                                  ),
+                                );
+                              }
+                            },
+                            child: const Text('Save',
+                                style: TextStyle(
+                                    fontSize: 22, color: Colors.white)),
+                          );
+                        },
+                      ),
+                    )
+                  ]),
                 )
               ],
             ),
           ],
-        ),),);
+        ),
+      ),
+    );
   }
 }

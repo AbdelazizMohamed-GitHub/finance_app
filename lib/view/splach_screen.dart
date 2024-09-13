@@ -1,23 +1,21 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:finance_app/constnat.dart';
 import 'package:finance_app/view/widget/custom_splash_button.dart';
-import 'package:finance_app/view/widget/custom_text_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart'
-    as sp; // Add this package for cool spinners
+    as sp; 
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: kPrimaryColor,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             // App Logo
             Icon(
               Icons.account_balance_wallet_rounded, // Finance-related icon

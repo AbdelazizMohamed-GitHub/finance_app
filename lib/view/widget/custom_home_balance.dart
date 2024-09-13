@@ -9,52 +9,55 @@ class CustomHomeBalance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-                      padding: EdgeInsets.all(16),
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.25,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: kPrimaryColor),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Total Balance",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(
-                            "\$ ${BlocProvider.of<FetchDataCubit>(context).totalBalance}",
-                            style: TextStyle(
-                                fontSize: 22,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Spacer(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              CustomTotalIncomeAndExpanses(
-                                titleText: 'Income',
-                                total: BlocProvider.of<FetchDataCubit>(context)
-                                    .totalIncome
-                                    .toString(),
-                                icon: Icons.arrow_downward,
-                              ),
-                              CustomTotalIncomeAndExpanses(
-                                titleText: 'Expenses',
-                                total: BlocProvider.of<FetchDataCubit>(context)
-                                    .totalExpense
-                                    .toString(),
-                                icon: Icons.arrow_upward,
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
+    return BlocBuilder<FetchDataCubit, FetchDataState>(
+      builder: (context, state) {
+        return Container(
+          padding: const EdgeInsets.all(16),
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height * 0.25,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16), color: kPrimaryColor),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Total Balance",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                "\$ ${BlocProvider.of<FetchDataCubit>(context).totalBalance}",
+                style: const TextStyle(
+                    fontSize: 22,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CustomTotalIncomeAndExpanses(
+                    titleText: 'Income',
+                    total: BlocProvider.of<FetchDataCubit>(context)
+                        .totalIncome
+                        .toString(),
+                    icon: Icons.arrow_downward,
+                  ),
+                  CustomTotalIncomeAndExpanses(
+                    titleText: 'Expenses',
+                    total: BlocProvider.of<FetchDataCubit>(context)
+                        .totalExpense
+                        .toString(),
+                    icon: Icons.arrow_upward,
+                  )
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
