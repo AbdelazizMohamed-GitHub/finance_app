@@ -2,6 +2,7 @@ import 'package:finance_app/constnat.dart';
 import 'package:finance_app/cubits/fetch_data_cubit/fetch_data_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CustomCategoryPrecentItem extends StatelessWidget {
   const CustomCategoryPrecentItem(
@@ -16,7 +17,7 @@ class CustomCategoryPrecentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset(
+      leading: SvgPicture.asset(
         image,
         width: 60,
         height: 60,
@@ -32,9 +33,11 @@ class CustomCategoryPrecentItem extends StatelessWidget {
         minHeight: 10,
         valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
       ),
-      trailing: SizedBox(width: 60,
-        child: Text(textAlign: TextAlign.end,
-       formatNumber(amount.toInt()),
+      trailing: SizedBox(
+        width: 60,
+        child: Text(
+          textAlign: TextAlign.end,
+          formatNumber(amount.toInt()),
           style: const TextStyle(fontSize: 20),
         ),
       ),

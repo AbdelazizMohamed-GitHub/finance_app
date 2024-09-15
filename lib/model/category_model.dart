@@ -23,6 +23,6 @@ List<CategoryModel> cateoryList = [
   CategoryModel(name: 'Housing', image: AppImages.housing, amount: 12),
   CategoryModel(name: 'Clothing', image: AppImages.clothing, amount: 12),
   CategoryModel(name: 'Charity', image: AppImages.charity, amount: 10),
-  CategoryModel(name: 'Investments', image: AppImages.investment, amount: 8),
+  CategoryModel(name: 'Investment', image: AppImages.investment, amount: 8),
   CategoryModel(name: 'other', image: AppImages.other, amount: 9),
 ];

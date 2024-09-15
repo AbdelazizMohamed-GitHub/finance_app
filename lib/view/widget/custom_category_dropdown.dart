@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:finance_app/model/category_model.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CustomCategoryDropdown extends StatefulWidget {
   const CustomCategoryDropdown({
     super.key,
     required this.onChanged,
   });
-final ValueChanged<String?> onChanged;
+  final ValueChanged<String?> onChanged;
   @override
   State<CustomCategoryDropdown> createState() => _CustomCategoryDropdownState();
 }
@@ -29,11 +30,10 @@ class _CustomCategoryDropdownState extends State<CustomCategoryDropdown> {
               value: category.name,
               child: Row(
                 children: [
-                  Image.asset(
-                    category.image,
-                    height: 40,
+                  SvgPicture.asset(
                     width: 40,
-                    fit: BoxFit.cover,
+                    height: 40,
+                    category.image,
                   ),
                   const SizedBox(
                     width: 10,

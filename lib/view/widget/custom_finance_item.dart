@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:finance_app/model/finance_model.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 class CustomFinanceItem extends StatelessWidget {
@@ -14,11 +15,11 @@ class CustomFinanceItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset(
-        "assets/images/${financeModel[index].category}.png",
-        width: 60,
+      leading: SvgPicture.asset(
+        width: 50,
         height: 60,
         fit: BoxFit.cover,
+        'assets/images/${financeModel[index].category}.svg',
       ),
       title: Text(
         financeModel[index].category,
